@@ -1,6 +1,5 @@
 module ApproxFunSingularities
-using Base, LinearAlgebra, Reexport, IntervalSets, 
-            DomainSets, Statistics, SpecialFunctions
+using Base, LinearAlgebra, Reexport, IntervalSets, DomainSets, Statistics
             
 @reexport using ApproxFunBase
 @reexport using ApproxFunOrthogonalPolynomials
@@ -42,7 +41,7 @@ import ApproxFunBase: normalize!, flipsign, FiniteRange, Fun, MatrixFun, UnsetSp
                     domaintype, diagindshift, rangetype, weight, isapproxinteger, default_Dirichlet, scal!, dotu,
                     components, promoterangespace, promotedomainspace,
                     block, blockstart, blockstop, blocklengths, isblockbanded, pointscompatible, affine_setdiff, complexroots,
-                    ∞
+                    ∞, gamma
 
 import ApproxFunOrthogonalPolynomials: order
 
@@ -60,27 +59,12 @@ import Base: values, convert, getindex, setindex!, *, +, -, ==, <, <=, >, |, !, 
                 getproperty, findfirst, unsafe_getindex, fld, cld, div, real, imag,
                 @_inline_meta, eachindex, firstindex, lastindex, keys, isreal, OneTo,
                 Array, Vector, Matrix, view, ones, @propagate_inbounds, print_array,
-                split
+                split, exp, log
 
 import LinearAlgebra: BlasInt, BlasFloat, norm, ldiv!, mul!, det, eigvals, dot, cross,
                 qr, qr!, rank, isdiag, istril, istriu, issymmetric, ishermitian,
                 Tridiagonal, diagm, diagm_container, factorize, nullspace,
                 Hermitian, Symmetric, adjoint, transpose, char_uplo                
-
-# we need to import all special functions to use Calculus.symbolic_derivatives_1arg
-# we can't do importall Base as we replace some Base definitions
-import SpecialFunctions: sinpi, cospi, airy, besselh,
-                    asinh, acosh,atanh, erfcx, dawson, erf, erfi,
-                    sin, cos, sinh, cosh, airyai, airybi, airyaiprime, airybiprime,
-                    hankelh1, hankelh2, besselj, besselj0, bessely, besseli, besselk,
-                    besselkx, hankelh1x, hankelh2x, exp2, exp10, log2, log10,
-                    tan, tanh, csc, asin, acsc, sec, acos, asec,
-                    cot, atan, acot, sinh, csch, asinh, acsch,
-                    sech, acosh, asech, tanh, coth, atanh, acoth,
-                    expm1, log1p, lfact, sinc, cosc, erfinv, erfcinv, beta, lbeta,
-                    eta, zeta, gamma,  lgamma, polygamma, invdigamma, digamma, trigamma,
-                    abs, sign, log, expm1, tan, abs2, sqrt, angle, max, min, cbrt, log,
-                    atan, acos, asin, erfc, inv
 
 include("divide_singularity.jl")
 include("JacobiWeight.jl")
